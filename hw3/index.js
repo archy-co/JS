@@ -4,16 +4,6 @@ let idCounter = 1;
 const mover = (event) => {
     event.preventDefault();
 
-    let box = event.target;
-
-    let xPos = event.clientX;
-    let yPos = event.clientY;
-    let xStart = xPos;
-    let yStart = yPos;
-
-    document.addEventListener("mousemove", move);
-    document.addEventListener("mouseup", stopMove);
-
     const move = (event) => {
         event.preventDefault();
         xPos = event.clientX;
@@ -30,6 +20,17 @@ const mover = (event) => {
         document.removeEventListener("mousemove", move);
         document.removeEventListener("mouseup", stopMove);
     }
+
+    let box = event.target;
+
+    let xPos = event.clientX;
+    let yPos = event.clientY;
+    let xStart = xPos;
+    let yStart = yPos;
+
+    document.addEventListener("mousemove", move);
+    document.addEventListener("mouseup", stopMove);
+
 }
 
 const colorer = (event) => {
@@ -65,22 +66,22 @@ const spawner = (event) => {
     if (!event.altKey && !event.shiftKey) {
         idCounter++;
         
-        let newBox = document.createElement("div");
-        newBox.classList.add("box");
+        let box = document.createElement("div");
+        box.classList.add("box");
 
         // set random color for new box
-        newBox.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        box.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
 
-        newBox.innerHTML = idCounter;
+        box.innerHTML = idCounter;
 
-        newBox.addEventListener("mousedown", mover);
-        newBox.addEventListener("contextmenu", colorer);
-        newBox.addEventListener("mousedown", resizer);
-        newBox.addEventListener("dblclick", remover);
+        box.addEventListener("mousedown", mover);
+        box.addEventListener("contextmenu", colorer);
+        box.addEventListener("mousedown", resizer);
+        box.addEventListener("dblclick", remover);
 
-        document.getElementsByClassName("box-container")[0].appendChild(newBox);
+        document.getElementsByClassName("box-container")[0].appendChild(box);
 
-        newBox.addEventListener("dblclick", spawner);
+        box.addEventListener("dblclick", spawner);
     }
 }
 
